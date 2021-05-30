@@ -17,7 +17,7 @@ public class SimianTest {
 
     @Test
     public void isSimian(){
-        List<String> dna = Arrays.asList("CTAGAA", "CCGAGC", "TACTGT", "AGACGG", "CCACTA", "TCACTG");
+        List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "TAGGGT", "AGAAGG", "CCACTG", "TCACTG");
         Assertions.assertTrue(simian.isSimian(dna));
     }
 }

@@ -7,22 +7,16 @@ import java.util.List;
 public class Simian {
 
     public Boolean isSimian(List<String> dna){
-        //"CTAAAA", "CCGAGC", "TACTGT", "AGACGG", "CCCCTA", "TCACTG"
+        //"CTAGAA", "CATAGC", "TAGTGT", "AGAATG", "CCACTA", "TCACTG"
         boolean isSimian = false;
         int indexToWordSequence = 1;
+        char sequenceCharIndex = dna.get(0).charAt(0);
         for(int i = 0; i < dna.size(); i++){
             String dnaSequence = dna.get(i);
 
-            char sequenceCharIndex = dna.get(i).charAt(i);
+            checkVerticallyIfDnaBelongsToASimian(dna.get(i), sequenceCharIndex, i, indexToWordSequence);
 
-            if(i < 5 && sequenceCharIndex == dna.get(i+1).charAt(i+1)){
-                indexToWordSequence++;
-            }else if(i < 5){
-                sequenceCharIndex = dna.get(i+1).charAt(i+1);
-            }
-
-            if(indexToWordSequence == 4) {
-                isSimian = true;
+            if(isSimian){
                 break;
             }
 
@@ -53,5 +47,30 @@ public class Simian {
             System.out.println(dnaSequence.charAt(j));
         }
         return isSimian;
+    }
+
+    private boolean checkVerticallyIfDnaBelongsToASimian(String dna, char sequenceCharIndex, int i, int indexToWordSequence){
+        boolean isSimian = false;
+        if(i < 5 && sequenceCharIndex == dna.charAt(i+1)){
+            indexToWordSequence++;
+        }else if(i < 5){
+            sequenceCharIndex = dna.charAt(i+1);
+        }
+
+        if(indexToWordSequence == 4) {
+            isSimian = true;
+        }
+        return isSimian;
+
+        /*if(i < 5 && sequenceCharIndex == dna.get(i).charAt(i+1)){
+            indexToWordSequence++;
+        }else if(i < 5){
+            sequenceCharIndex = dna.get(i).charAt(i+1);
+        }
+
+        if(indexToWordSequence == 4) {
+            isSimian = true;
+            break;
+        }*/
     }
 }
