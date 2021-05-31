@@ -1,6 +1,6 @@
-package com.simian.simian;
+package com.simian;
 
-import com.simian.simian.service.Simian;
+import com.simian.service.Simian;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SimianTest {
 
     @Test
     public void isSimian(){
-        List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "TAGGGT", "AGAAGG", "CCACTG", "TCACTG");
+        List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "TAGGGT", "AGAGGG", "CCACGG", "TCACTG");
         Assertions.assertTrue(simian.isSimian(dna));
     }
 }

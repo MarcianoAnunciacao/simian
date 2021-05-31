@@ -1,4 +1,4 @@
-package com.simian.simian;
+package com.simian;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

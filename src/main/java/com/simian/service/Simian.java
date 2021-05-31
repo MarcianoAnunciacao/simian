@@ -1,4 +1,4 @@
-package com.simian.simian.service;
+package com.simian.service;
 
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,9 @@ public class Simian {
         int indexToWordSequence = 1;
         char sequenceCharIndex = dna.get(0).charAt(0);
 
-        checkDiagonallyIfDnaBelongsToASimian(dna);
+        isSimian = checkDiagonallyInverseIfDnaBelongsToASimian(dna);
+
+        /*isSimian = checkDiagonallyIfDnaBelongsToASimian(dna);
 
         for(int i = 0; i < dna.size(); i++){
             String dnaSequence = dna.get(i);
@@ -25,7 +27,7 @@ public class Simian {
                 break;
             }
             System.out.println(i);
-        }
+        }*/
         return isSimian;
     }
 
@@ -53,7 +55,7 @@ public class Simian {
         boolean isSimian = false;
         int indexToWordSequence = 1;
         char sequenceCharIndex = dna.get(0).charAt(0);
-        //"CTAGAA", "CAGAGC", "TAGGGT", "AGAAGG", "CCACTG", "TCACTG"
+
         for(int i = 0; i < dna.size(); i++) {
             if (i < 5 && sequenceCharIndex == dna.get(i + 1).charAt(i + 1)) {
                 indexToWordSequence++;
@@ -66,16 +68,23 @@ public class Simian {
             }
         }
         return isSimian;
+    }
 
-        /*if(i < 5 && sequenceCharIndex == dna.get(i).charAt(i+1)){
-            indexToWordSequence++;
-        }else if(i < 5){
-            sequenceCharIndex = dna.get(i).charAt(i+1);
+    private boolean checkDiagonallyInverseIfDnaBelongsToASimian(List<String> dna){
+        boolean isSimian = false;
+        int indexToWordSequence = 1;
+        char sequenceCharIndex = dna.get(dna.size()-1).charAt(dna.get(dna.size()-1).length() - 1);
+        //"CTAGAA", "CAGAGC", "TAGGGT", "AGAGGG", "CCACGG", "TCACTG"
+        for(int i = dna.size()-1; i > 0; i--) {
+            if (sequenceCharIndex == dna.get(i-1).charAt(i-1)) {
+                indexToWordSequence++;
+            } else if (i < 5) {
+                sequenceCharIndex = dna.get(i-1).charAt(i-1);
+            }
+            if (indexToWordSequence == 4) {
+                isSimian = true;
+            }
         }
-
-        if(indexToWordSequence == 4) {
-            isSimian = true;
-            break;
-        }*/
+        return isSimian;
     }
 }

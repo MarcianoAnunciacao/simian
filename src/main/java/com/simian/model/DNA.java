@@ -1,4 +1,4 @@
-package com.simian.simian.model;
+package com.simian.model;
 
 import javax.persistence.*;
 
