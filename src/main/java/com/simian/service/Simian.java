@@ -1,4 +1,4 @@
-package com.simian.simian.model.service;
+package com.simian.simian.service;
 
 import org.springframework.stereotype.Component;
 
@@ -11,11 +11,11 @@ public class Simian {
         boolean isSimian = false;
         int indexToWordSequence = 1;
         char sequenceCharIndex = dna.get(0).charAt(0);
+
+        checkDiagonallyIfDnaBelongsToASimian(dna);
+
         for(int i = 0; i < dna.size(); i++){
             String dnaSequence = dna.get(i);
-
-            checkVerticallyIfDnaBelongsToASimian(dna.get(i), sequenceCharIndex, i, indexToWordSequence);
-
             if(isSimian){
                 break;
             }
@@ -49,16 +49,21 @@ public class Simian {
         return isSimian;
     }
 
-    private boolean checkVerticallyIfDnaBelongsToASimian(String dna, char sequenceCharIndex, int i, int indexToWordSequence){
+    private boolean checkDiagonallyIfDnaBelongsToASimian(List<String> dna){
         boolean isSimian = false;
-        if(i < 5 && sequenceCharIndex == dna.charAt(i+1)){
-            indexToWordSequence++;
-        }else if(i < 5){
-            sequenceCharIndex = dna.charAt(i+1);
-        }
+        int indexToWordSequence = 1;
+        char sequenceCharIndex = dna.get(0).charAt(0);
+        //"CTAGAA", "CAGAGC", "TAGGGT", "AGAAGG", "CCACTG", "TCACTG"
+        for(int i = 0; i < dna.size(); i++) {
+            if (i < 5 && sequenceCharIndex == dna.get(i + 1).charAt(i + 1)) {
+                indexToWordSequence++;
+            } else if (i < 5) {
+                sequenceCharIndex = dna.get(i + 1).charAt(i + 1);
+            }
 
-        if(indexToWordSequence == 4) {
-            isSimian = true;
+            if (indexToWordSequence == 4) {
+                isSimian = true;
+            }
         }
         return isSimian;
 
