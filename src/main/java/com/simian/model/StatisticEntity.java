@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "statistic")
-public class Statistic {
+@Table(name = "dna_statistic")
+public class StatisticEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="mutant_dna")

@@ -4,9 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "dna")
-public class DNA {
+public class DnaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "sequence")

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: simian-api
+    datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:simiandb;MODE=MYSQL
+      username: sa
+      password:
+    jpa:
+      hibernate.ddl-auto: update
+
+---
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/simiandb
+    username: root
+    password: root
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://produrl:3306/simiandb
+    username: root
+    password: root
