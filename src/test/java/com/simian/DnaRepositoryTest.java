@@ -28,6 +28,5 @@ public class DnaRepositoryTest {
         DnaEntity dnaFound = dnaRepository.findBySequence("CTAGAA");
 
         Assert.assertEquals(dnaFound.getSequence(), "CTAGAA");
-
     }
 }

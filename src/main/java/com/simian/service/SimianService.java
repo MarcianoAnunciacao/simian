@@ -1,19 +1,35 @@
 package com.simian.service;
 
+import com.simian.model.DnaEntity;
+import com.simian.model.StatisticEntity;
+import com.simian.repository.DnaRepository;
+import com.simian.repository.StatisticRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class SimianService {
 
+    @Autowired
+    private StatisticRepository statisticRepository;
+
+    @Autowired
+    private DnaRepository dnaRepository;
+
     public Boolean isSimian(List<String> dna){
+        dna.forEach(it -> createDna(it));
         if(checkDnaHorizontally(dna)){
+            updateStatistics(true);
            return true;
         }else if(checkDiagonallyIfDnaBelongsToASimian(dna)){
+            updateStatistics(true);
             return true;
         }else if(checkDiagonallyInverseIfDnaBelongsToASimian(dna)){
+            updateStatistics(true);
             return true;
         }else{
+            updateStatistics(false);
             return false;
         }
     }
@@ -45,7 +61,7 @@ public class SimianService {
         boolean isSimian = false;
         int indexToWordSequence = 1;
         char sequenceCharIndex = dna.get(0).charAt(0);
-
+        DnaEntity dnaEntity = new DnaEntity();
         for(int i = 0; i < dna.size(); i++) {
             if (i < 5 && sequenceCharIndex == dna.get(i + 1).charAt(i + 1)) {
                 indexToWordSequence++;
@@ -75,5 +91,23 @@ public class SimianService {
             }
         }
         return isSimian;
+    }
+
+    private void createDna(String dna){
+        DnaEntity dnaEntity = new DnaEntity();
+        dnaEntity.setSequence(dna);
+        dnaRepository.save(dnaEntity);
+    }
+
+    private void updateStatistics(boolean isSimian){
+        StatisticEntity statisticEntity = statisticRepository.findAll().get(0);
+        if(isSimian){
+            statisticEntity.setMutantDna(statisticEntity.getMutantDna()+1);
+        }else{
+            statisticEntity.setHumanDna(statisticEntity.getHumanDna()+1);
+        }
+
+        statisticRepository.updateStatistic(statisticEntity.getMutantDna(), statisticEntity.getHumanDna(), statisticEntity.getId());
+
     }
 }

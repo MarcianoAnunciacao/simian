@@ -42,4 +42,14 @@ public class StatisticEntity {
     public void setHumanDna(Long humanDna) {
         this.humanDna = humanDna;
     }
+
+    public BigDecimal getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(BigDecimal ratio) {
+        double x = this.mutantDna / this.humanDna;
+
+        this.ratio = ratio;
+    }
 }
