@@ -1,6 +1,6 @@
 package com.simian.repository;
 
-import com.simian.model.StatisticEntity;
+import com.simian.entity.StatisticEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

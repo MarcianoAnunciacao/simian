@@ -1,6 +1,6 @@
 package com.simian.repository;
 
-import com.simian.model.DnaEntity;
+import com.simian.entity.DnaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

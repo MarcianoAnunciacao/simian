@@ -1,6 +1,6 @@
 package com.simian;
 
-import com.simian.model.StatisticEntity;
+import com.simian.entity.StatisticEntity;
 import com.simian.repository.StatisticRepository;
 import org.junit.Assert;
 import org.junit.Test;

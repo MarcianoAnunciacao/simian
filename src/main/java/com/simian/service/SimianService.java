@@ -1,7 +1,7 @@
 package com.simian.service;
 
-import com.simian.model.DnaEntity;
-import com.simian.model.StatisticEntity;
+import com.simian.entity.DnaEntity;
+import com.simian.entity.StatisticEntity;
 import com.simian.repository.DnaRepository;
 import com.simian.repository.StatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;

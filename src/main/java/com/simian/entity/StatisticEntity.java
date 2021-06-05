@@ -1,4 +1,4 @@
-package com.simian.model;
+package com.simian.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

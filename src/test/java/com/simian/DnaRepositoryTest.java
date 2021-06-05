@@ -1,6 +1,6 @@
 package com.simian;
 
-import com.simian.model.DnaEntity;
+import com.simian.entity.DnaEntity;
 import com.simian.repository.DnaRepository;
 import org.junit.Assert;
 import org.junit.Test;
