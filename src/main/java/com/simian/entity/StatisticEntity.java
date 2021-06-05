@@ -47,9 +47,7 @@ public class StatisticEntity {
         return ratio;
     }
 
-    public void setRatio(BigDecimal ratio) {
-        double x = this.mutantDna / this.humanDna;
-
-        this.ratio = ratio;
+    public void setRatio() {
+        this.ratio = new BigDecimal(this.mutantDna / this.humanDna);
     }
 }
