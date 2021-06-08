@@ -11,18 +11,22 @@ spring:
 
 ---
 spring:
-  profiles: local
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/simiandb
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/simian
     username: root
     password: root
+  config:
+    activate:
+      on-profile: local
 
 ---
 spring:
-  profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://produrl:3306/simiandb
     username: root
     password: root
+  config:
+    activate:
+      on-profile: prod
