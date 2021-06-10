@@ -1,0 +1,1 @@
+insert into dna_statistic(id,mutant_dna, human_dna, ratio) values(1,0,0,0.0);
