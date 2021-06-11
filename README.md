@@ -50,26 +50,43 @@ sudo systemctl status docker
 crie um container com o MySQL 8.0 da seguinte forma:
 
 ```bash
-sudo docker run --name simiandb -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_ROOT_HOST=% -p 3306 --net=host -d mysql/mysql-server:8.0
-```
+export MYSQL_CONTAINER=simiandb
+export MYSQL_ROOT_USER=root
+export MYSQL_ROOT_PASSWORD=Masterkey321
+export MYSQL_HOST=127.0.0.1
+export MYSQL_PORT=3306
+export MYSQL_DB=simiandb
+
+docker run --rm -p $MYSQL_HOST:$MYSQL_PORT:3306 \
+    --name $MYSQL_CONTAINER \
+    -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
+    -e MYSQL_DATABASE=$MYSQL_DB \
+    -e MYSQL_ROOT_HOST=% \
+    -d mysql:8.0
+
+docker logs $MYSQL_CONTAINER --follow 
+
+ ```
 
 Para ter certeza de que o mysql está rodando (ele roda na porta 3306),
 liste os containers:
 
 ```bash
-sudo docker container ls
+docker container ls
 ```
 ### Configuração local
 
-Entre no MySQL via usuário root e crie 1 base com o nome **simiandb**:
+Para entrar no container do mysql com o client:
 ```bash
-docker exec -it simian bash -l
-CREATE DATABASE simiandb;
+docker exec -it  $MYSQL_CONTAINER bash -l
+
+
+# mysql -uroot -pMasterkey321
 ```
 
 ### Como rodar o projeto local
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run -Dspring.profiles.active=local
 ```
 
 Por fim, sempre que quiser rodar os testes após fazer alguma alteração, basta digitar:

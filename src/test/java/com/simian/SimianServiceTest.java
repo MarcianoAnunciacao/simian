@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO: Fix tests
+//TODO: Add Jacoco https://www.eclemma.org/jacoco/
 @SpringBootTest
 public class SimianServiceTest {
 

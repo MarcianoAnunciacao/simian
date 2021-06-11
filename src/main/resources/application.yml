@@ -16,9 +16,9 @@ spring:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/simian
+    url: jdbc:mysql://localhost:3306/simiandb
     username: root
-    password: root
+    password: Masterkey321
   config:
     activate:
       on-profile: local

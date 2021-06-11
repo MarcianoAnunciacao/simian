@@ -18,6 +18,31 @@ public class SimianService {
     @Autowired
     private DnaRepository dnaRepository;
 
+    //TODO: Fix Algo
+    /*
+    {"CTGAGA",
+     "CTGAGC",
+     "TATTGT",
+     "AGAGGG",
+     "CCCCTA",
+     "TCACTG"};
+
+    {"1111?",
+     "11???",
+     "1?1??",
+     "1??1?",
+     "?????",
+     "?????"};
+
+    {"?????",
+     "?NNNN",
+     "NNN??",
+     "?N?N?",
+     "?N??N",
+     "?????"};
+
+     */
+
     @Transactional
     public Boolean isSimian(List<String> dna){
         dna.forEach(it -> createDna(it));
