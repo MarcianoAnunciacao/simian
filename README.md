@@ -68,20 +68,13 @@ CREATE DATABASE simiandb;
 ```
 
 ### Como rodar o projeto local
-
-Primeiro, é necessário compilar todo o projeto:
 ```bash
-mvn clean build
-``` 
-
-Depois, para subir a aplicação basta digitar na linha de comando:
-```bash
-mvn run
+mvn spring-boot:run
 ```
 
 Por fim, sempre que quiser rodar os testes após fazer alguma alteração, basta digitar:
 ```bash
-mvn clean test
+mvn test
 ```
 
 A aplicação ficará disponível na porta 8080. Acesse `http://localhost:8080/health`.
