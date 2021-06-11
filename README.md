@@ -88,20 +88,5 @@ A aplicação ficará disponível na porta 8080. Acesse `http://localhost:8080/h
 
 ### API
 
-A seguir definimos todos os end-points do serviço e exemplos.
-
-#### Checagem de DNA
-
-`POST` `/events` Payload:
-```json
-{
-  
-}
-```
-
-Response:
-```json
-{
-
-}
-```
+A seguir definimos todos os end-points do serviço e exemplos:
+http://localhost:8080/simian/swagger-ui/

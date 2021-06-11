@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/simian")
+@RequestMapping("/dna")
 public class SimianController {
     @Autowired
     private SimianService simianService;

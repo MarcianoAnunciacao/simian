@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /simian
 spring:
   application:
     name: simian-api

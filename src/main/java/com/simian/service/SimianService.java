@@ -6,6 +6,7 @@ import com.simian.repository.DnaRepository;
 import com.simian.repository.StatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -17,6 +18,7 @@ public class SimianService {
     @Autowired
     private DnaRepository dnaRepository;
 
+    @Transactional
     public Boolean isSimian(List<String> dna){
         dna.forEach(it -> createDna(it));
         if(checkDnaHorizontally(dna)){
