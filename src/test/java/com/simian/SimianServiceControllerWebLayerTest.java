@@ -32,7 +32,7 @@ public class SimianServiceControllerWebLayerTest {
     public void whenTestApp_ThenValidResponse() throws Exception {
         List<String> dnas = Arrays.asList("CTAGAA", "CAGAGC", "TGGGGT", "AGAGGG", "CCACGG", "TCACTG");
         this.mockMvc.perform( MockMvcRequestBuilders
-        .post("/simian")
+        .post("/dna")
                 .contentType("application/json")
                 .content(mapper.writeValueAsString(dnas)))
         .andExpect(status().isOk());
@@ -42,7 +42,7 @@ public class SimianServiceControllerWebLayerTest {
     public void whenTestApp_ThenReturnForbiddenResponse() throws Exception{
         List<String> dnas = Arrays.asList("CTAGAC", "CAGAGC", "TGTGAT", "AGAGTG", "CGACTG", "TCACTG");
         this.mockMvc.perform( MockMvcRequestBuilders
-                .post("/simian")
+                .post("/dna")
                 .contentType("application/json")
                 .content(mapper.writeValueAsString(dnas)))
                 .andExpect(status().isForbidden());

@@ -29,6 +29,6 @@ public class StatisticControllerWebLayerTest {
         this.mockMvc.perform( MockMvcRequestBuilders
                 .get("/stats")
                 .contentType("application/json"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isOk());
     }
 }

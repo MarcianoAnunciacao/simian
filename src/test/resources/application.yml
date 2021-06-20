@@ -6,4 +6,4 @@ spring:
     password:
 
   flyway:
-    enabled: false
+    enabled: true
