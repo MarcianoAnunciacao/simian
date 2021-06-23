@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class SimianService {
@@ -45,7 +46,8 @@ public class SimianService {
 
     @Transactional
     public Boolean isSimian(List<String> dna){
-        dna.forEach(it -> createDna(it));
+        return checkDnaVertically(dna);
+        /*dna.forEach(it -> createDna(it));
         if(checkDnaHorizontally(dna)){
             updateStatistics(true);
            return true;
@@ -58,7 +60,7 @@ public class SimianService {
         }else{
             updateStatistics(false);
             return false;
-        }
+        }*/
     }
 
     private boolean checkDnaHorizontally(List<String> dna){
@@ -84,11 +86,39 @@ public class SimianService {
         return isSimian;
     }
 
+    private boolean checkDnaVertically(List<String> dna){
+        boolean isSimian = false;
+        char sequenceCharIndex = dna.get(0).charAt(0);
+        int indexToWordSequence = 1;
+        String verticalString = "";
+        List<String> stringsVerticallyModified = new ArrayList<>();
+        stringsVerticallyModified.add(verticalString + dna.get(0).charAt(0) + dna.get(1).charAt(0) + dna.get(2).charAt(0)
+                + dna.get(3).charAt(0) + dna.get(4).charAt(0) + dna.get(5).charAt(0));
+        for(int i = 0; i < 6; i++){
+            sequenceCharIndex = dna.get(i).charAt(0);
+            for(int j = 0; j < 6; j++){
+                if(sequenceCharIndex == dna.get(j).charAt(i)){
+                    indexToWordSequence++;
+                }else{
+                    sequenceCharIndex = dna.get(i+1).charAt(i);
+                }
+
+                if (indexToWordSequence == 4) {
+                    isSimian = true;
+                    break;
+                }
+            }
+
+        }
+
+        return isSimian;
+    }
+
     private boolean checkDiagonallyIfDnaBelongsToASimian(List<String> dna){
         boolean isSimian = false;
         int indexToWordSequence = 1;
         char sequenceCharIndex = dna.get(0).charAt(0);
-        DnaEntity dnaEntity = new DnaEntity();
+
         for(int i = 0; i < dna.size(); i++) {
             if (i < 5 && sequenceCharIndex == dna.get(i + 1).charAt(i + 1)) {
                 indexToWordSequence++;

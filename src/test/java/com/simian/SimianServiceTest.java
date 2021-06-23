@@ -23,6 +23,12 @@ public class SimianServiceTest {
     }
 
     @Test
+    public void checkIfIsSimanVertically(){
+        List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "CGGGGT", "CGAGGG", "CCACGG", "TCACTG");
+        Assertions.assertTrue(simianService.isSimian(dna));
+    }
+
+    @Test
     public void checkIfIsSimianDiagonally(){
         List<String> dna = Arrays.asList("CAAGAA", "CAAAGC", "TAGAGT", "AGAGGG", "CCACGG", "TCACTG");
         Assertions.assertTrue(simianService.isSimian(dna));
