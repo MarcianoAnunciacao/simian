@@ -2,14 +2,13 @@ package com.simian.service;
 
 import com.simian.entity.DnaEntity;
 import com.simian.entity.StatisticEntity;
+import com.simian.error.DnaFormatException;
 import com.simian.repository.DnaRepository;
 import com.simian.repository.StatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.ValidationException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +23,7 @@ public class SimianService {
     private DnaRepository dnaRepository;
 
     @Transactional
-    public Boolean isSimian(List<String> dna) throws ValidationException {
+    public Boolean isSimian(List<String> dna) throws DnaFormatException {
         validateDnaSequence(dna);
         dna.forEach(it -> createDna(it));
         if(checkDnaHorizontally(dna)){
@@ -57,6 +56,7 @@ public class SimianService {
                     indexToWordSequence++;
                 } else {
                     sequenceCharIndex = dnaSequence.charAt(j);
+                    indexToWordSequence = 1;
                 }
 
                 if (indexToWordSequence == 4) {
@@ -80,6 +80,7 @@ public class SimianService {
                     indexToWordSequence++;
                 }else{
                     sequenceCharIndex = dna.get(j).charAt(i);
+                    indexToWordSequence = 1;
                 }
 
                 if (indexToWordSequence == 4) {
@@ -103,6 +104,7 @@ public class SimianService {
                 indexToWordSequence++;
             } else if (i < 5) {
                 sequenceCharIndex = dna.get(i + 1).charAt(i + 1);
+                indexToWordSequence = 1;
             }
 
             if (indexToWordSequence == 4) {
@@ -121,6 +123,7 @@ public class SimianService {
                 indexToWordSequence++;
             } else if (i < 5) {
                 sequenceCharIndex = dna.get(i-1).charAt(i-1);
+                indexToWordSequence = 1;
             }
             if (indexToWordSequence == 4) {
                 isSimian = true;
@@ -145,12 +148,12 @@ public class SimianService {
         statisticRepository.updateStatistic(statisticEntity.getMutantDna(), statisticEntity.getHumanDna(), statisticEntity.getId());
     }
 
-    private void validateDnaSequence(List<String> dna) throws ValidationException {
+    private void validateDnaSequence(List<String> dna) throws DnaFormatException {
         Pattern pattern = Pattern.compile("[^ATCG]");
         for(String d : dna){
             Matcher matcher = pattern.matcher(d);
             if (matcher.find()) {
-                throw new ValidationException("Favor utilizar apenas as letras A, T, C, G");
+                throw new DnaFormatException("Favor utilizar apenas as letras A, T, C, G");
             }
         }
     }

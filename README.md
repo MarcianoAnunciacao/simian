@@ -89,10 +89,16 @@ docker exec -it  $MYSQL_CONTAINER bash -l
 mvn spring-boot:run -Dspring.profiles.active=local
 ```
 
-Por fim, sempre que quiser rodar os testes após fazer alguma alteração, basta digitar:
+Sempre que quiser rodar os testes após fazer alguma alteração, basta digitar:
 ```bash
 mvn test
 ```
+
+Para rodar o Jacoco, basta digitar:
+```bash
+mvn clean test jacoco:report
+```
+
 
 A aplicação ficará disponível na porta 8080. Acesse `http://localhost:8080/health`.
 

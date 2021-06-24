@@ -33,25 +33,14 @@ class SimianSimulation extends Simulation {
     .doNotTrackHeader(doNotTrackHdr)
     .userAgentHeader(userAgentHdr)
 
-  val post_body =
-    """{
-      "sourceUUID": "33333333-3333-3333-33333333333333333",
-      "sourceIP": "0.0.0.0",
-      "lat": 0,
-      "lng": 0,
-      "createTime": "2021-04-19T12:30:08.526699",
-      "displayColor": "#000000",
-      "batteryLevel": 100
-    }"""
+  val post_dna_body =
+    """[CTAGAA", "CAGAGC", "TGGGGT", "AGAGGG", "CCACGG", "TCACTG]"""
+
+  val post = http("post_hb").post("/dna")
+    .header("content-type","application/json")
+    .body(StringBody(post_dna_body))
 
   val get_stats = http("get_stats").get("/simian/stats")
-
-  /*
-  val post = http("post_hb").post("/api/hb")
-    .header("content-type","application/json")
-    .body(StringBody(post_hb_body))
-
-   */
 
   val scn = scenario("Telemetry Scenario")
     .exec(get_stats)
