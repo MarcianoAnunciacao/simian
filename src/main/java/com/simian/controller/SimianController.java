@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class SimianController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Boolean> isDnaBelongsToASimian(@RequestBody List<String> dnaSequence){
+    public ResponseEntity<Boolean> isDnaBelongsToASimian(@RequestBody List<String> dnaSequence) throws ValidationException {
         if(simianService.isSimian(dnaSequence)){
             return ResponseEntity.ok().body(true);
         }else{

@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 public class SimianService {
 
@@ -19,35 +23,10 @@ public class SimianService {
     @Autowired
     private DnaRepository dnaRepository;
 
-    //TODO: Fix Algo
-    /*
-    {"CTGAGA",
-     "CTGAGC",
-     "TATTGT",
-     "AGAGGG",
-     "CCCCTA",
-     "TCACTG"};
-
-    {"1111?",
-     "11???",
-     "1?1??",
-     "1??1?",
-     "?????",
-     "?????"};
-
-    {"?????",
-     "?NNNN",
-     "NNN??",
-     "?N?N?",
-     "?N??N",
-     "?????"};
-
-     */
-
     @Transactional
-    public Boolean isSimian(List<String> dna){
-        return checkDnaVertically(dna);
-        /*dna.forEach(it -> createDna(it));
+    public Boolean isSimian(List<String> dna) throws ValidationException {
+        validateDnaSequence(dna);
+        dna.forEach(it -> createDna(it));
         if(checkDnaHorizontally(dna)){
             updateStatistics(true);
            return true;
@@ -57,10 +36,14 @@ public class SimianService {
         }else if(checkDiagonallyInverseIfDnaBelongsToASimian(dna)){
             updateStatistics(true);
             return true;
-        }else{
+        }else if(checkDnaVertically(dna)){
+            updateStatistics(true);
+            return true;
+        }
+        else{
             updateStatistics(false);
             return false;
-        }*/
+        }
     }
 
     private boolean checkDnaHorizontally(List<String> dna){
@@ -80,7 +63,6 @@ public class SimianService {
                     isSimian = true;
                     break;
                 }
-                System.out.println(dnaSequence.charAt(j));
             }
         }
         return isSimian;
@@ -90,17 +72,14 @@ public class SimianService {
         boolean isSimian = false;
         char sequenceCharIndex = dna.get(0).charAt(0);
         int indexToWordSequence = 1;
-        String verticalString = "";
-        List<String> stringsVerticallyModified = new ArrayList<>();
-        stringsVerticallyModified.add(verticalString + dna.get(0).charAt(0) + dna.get(1).charAt(0) + dna.get(2).charAt(0)
-                + dna.get(3).charAt(0) + dna.get(4).charAt(0) + dna.get(5).charAt(0));
-        for(int i = 0; i < 6; i++){
-            sequenceCharIndex = dna.get(i).charAt(0);
-            for(int j = 0; j < 6; j++){
+
+        for(int i =0; i < dna.get(0).length(); i++){
+            for(int j = 1; j < dna.size(); j++ ){
+
                 if(sequenceCharIndex == dna.get(j).charAt(i)){
                     indexToWordSequence++;
                 }else{
-                    sequenceCharIndex = dna.get(i+1).charAt(i);
+                    sequenceCharIndex = dna.get(j).charAt(i);
                 }
 
                 if (indexToWordSequence == 4) {
@@ -108,7 +87,7 @@ public class SimianService {
                     break;
                 }
             }
-
+            indexToWordSequence = 1;
         }
 
         return isSimian;
@@ -163,8 +142,16 @@ public class SimianService {
         }else{
             statisticEntity.setHumanDna(statisticEntity.getHumanDna()+1);
         }
-
         statisticRepository.updateStatistic(statisticEntity.getMutantDna(), statisticEntity.getHumanDna(), statisticEntity.getId());
+    }
 
+    private void validateDnaSequence(List<String> dna) throws ValidationException {
+        Pattern pattern = Pattern.compile("[^ATCG]");
+        for(String d : dna){
+            Matcher matcher = pattern.matcher(d);
+            if (matcher.find()) {
+                throw new ValidationException("Favor utilizar apenas as letras A, T, C, G");
+            }
+        }
     }
 }

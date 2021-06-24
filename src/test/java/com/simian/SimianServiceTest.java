@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.xml.bind.ValidationException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,26 +18,27 @@ public class SimianServiceTest {
     private SimianService simianService;
 
     @Test
-    public void checkIfIsSimianHorizontally(){
+    public void checkIfIsSimianHorizontally() throws ValidationException {
         List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "TGGGGT", "AGAGGG", "CCACGG", "TCACTG");
         Assertions.assertTrue(simianService.isSimian(dna));
     }
 
     @Test
-    public void checkIfIsSimanVertically(){
-        List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "CGGGGT", "CGAGGG", "CCACGG", "TCACTG");
+    public void checkIfIsSimanVertically() throws ValidationException {
+        List<String> dna = Arrays.asList("CGAGAA", "TGGGGC", "CTGGGT", "CTAGGG", "TCACGG", "GCACTG");
         Assertions.assertTrue(simianService.isSimian(dna));
     }
 
     @Test
-    public void checkIfIsSimianDiagonally(){
-        List<String> dna = Arrays.asList("CAAGAA", "CAAAGC", "TAGAGT", "AGAGGG", "CCACGG", "TCACTG");
+    public void checkIfIsSimianDiagonally() throws ValidationException {
+        List<String> dna = Arrays.asList("CAAGAA", "CAAZGC", "TAGAGT", "AGAGGG", "CCACGG", "TCACTG");
         Assertions.assertTrue(simianService.isSimian(dna));
     }
 
     @Test
-    public void checkIfIsSimianDiagonallyInverse(){
+    public void checkIfIsSimianDiagonallyInverse() throws ValidationException {
         List<String> dna = Arrays.asList("CTAGAA", "CAGAGC", "TAAGGT", "AGAAGG", "CCACAG", "TCACTA");
         Assertions.assertTrue(simianService.isSimian(dna));
     }
+
 }
