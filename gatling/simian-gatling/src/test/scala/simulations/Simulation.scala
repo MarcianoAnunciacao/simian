@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory
 import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.{Level, LoggerContext}
 
-//TODO: Improve HTTP simulation
 class SimianSimulation extends Simulation {
 
   def getEnv(name:String, deft:String):String =
@@ -34,16 +33,15 @@ class SimianSimulation extends Simulation {
     .userAgentHeader(userAgentHdr)
 
   val post_dna_body =
-    """[CTAGAA", "CAGAGC", "TGGGGT", "AGAGGG", "CCACGG", "TCACTG]"""
+    """["CTAGAA", "CAGAGC", "TGGGGT", "AGAGGG", "CCACGG", "TCACTG"]"""
 
-  val post = http("post_hb").post("/dna")
+  val post_dna = http("post_dna").post("/simian/dna")
     .header("content-type","application/json")
     .body(StringBody(post_dna_body))
 
   val get_stats = http("get_stats").get("/simian/stats")
 
-  val scn = scenario("Telemetry Scenario")
-    .exec(get_stats)
+  val scn = scenario("Telemetry Scenario for Simian API Requests").exec(get_stats).exec(post_dna)
 
   val incUsersPerSec = getInt("GATLING_USERS_SEC", 5)
   val incTimes = getInt("GATLING_TIMES", 3)
@@ -52,9 +50,6 @@ class SimianSimulation extends Simulation {
 
   setUp(
     scn.inject(
-      /*
-      atOnceUsers(50)
-       */
       incrementUsersPerSec(incUsersPerSec)
         .times(incTimes)
         .eachLevelLasting(lvlDuration)
@@ -62,4 +57,5 @@ class SimianSimulation extends Simulation {
         .startingFrom(1)
     )
   ).protocols(httpProtocol)
+
 }

@@ -98,7 +98,11 @@ Para rodar o Jacoco, basta digitar:
 ```bash
 mvn clean test jacoco:report
 ```
-
+Para rodar os testes de Carga/Performance
+```bash
+cd /git/simian/gatling/simian-gatling
+mvn clean gatling:test
+```
 
 A aplicação ficará disponível na porta 8080. Acesse `http://localhost:8080/health`.
 
