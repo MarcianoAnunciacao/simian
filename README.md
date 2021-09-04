@@ -3,8 +3,10 @@
 ### Descrição
 
 API que realiza a checagem de DNA para saber se o DNA pertence a um humano ou a um simio.
+
 Você saberá se um DNA pertence a um símio, se encontrar uma ou mais sequências de quatro letras
 iguais nas direções horizontais, verticais ou nas diagonais.
+
 Exemplo (Símio):
 "CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"
 
